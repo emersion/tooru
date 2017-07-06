@@ -24,7 +24,7 @@ exit(1)
 EOF
 }
 
-while read src
+while read -r src
 do
 	echo "Archiving $src"
 	if ytdl_check "$src"; then
