@@ -29,7 +29,7 @@ do
 	echo "Archiving $src"
 	if ytdl_check "$src"; then
 		host=$(url_host "$src")
-		youtube-dl -w -o "$host/%(playlist)s/%(id)s.%(ext)s" --add-metadata -i --download-archive "$host/ids" "$src"
+		youtube-dl -w -o "$host/%(playlist)s/%(id)s.%(ext)s" --add-metadata -i --download-archive "$host/ids" "$src" || true
 	else
 		wget -m "$src"
 	fi
