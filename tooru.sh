@@ -2,11 +2,6 @@
 
 set -euf -o pipefail
 
-sources_file=sources
-if [ "$#" -eq 1 ] ; then
-	sources_file="$1"
-fi
-
 url_host() {
 	echo "$1" | cut -d'/' -f3
 }
@@ -23,6 +18,16 @@ for ie in gen_extractor_classes():
 exit(1)
 EOF
 }
+
+sources_file=sources
+if [ "$#" -eq 1 ] ; then
+	sources_file="$1"
+fi
+
+if [ ! -f "$sources_file" ] ; then
+	echo "tooru: cannot find sources file \"$sources_file\"" >&2
+	exit 1
+fi
 
 while read -r src
 do
