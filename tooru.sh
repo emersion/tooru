@@ -36,7 +36,12 @@ while read -r src; do
 	echo "Archiving $url"
 	if ytdl_check "$url"; then
 		host=$(url_host "$url")
-		youtube-dl -w -o "$host/%(playlist)s/%(id)s.%(ext)s" --add-metadata -i --download-archive "$host/ids" "${options[@]}" "$url" || true
+
+		(
+			mkdir -p "$host"
+			cd "$host"
+			youtube-dl -w -o "%(playlist)s/%(title)s.%(ext)s" --add-metadata -i --download-archive "ids" "${options[@]}" "$url" || true
+		)
 	else
 		wget -m "${options[@]}" "$url"
 	fi
