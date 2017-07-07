@@ -21,6 +21,15 @@ You can setup a cronjob to sync your archive periodically:
 0 0 * * 0 cd ~/archives && tooru
 ```
 
+## `sources` file format
+
+One URL per line, followed by options.
+
+```
+https://drewdevault.com
+https://www.youtube.com/watch?v=YE7VzlLtp-4 --extract-audio --audio-format=mp3
+```
+
 ## Supported content
 
 * Everything that `youtube-dl` supports

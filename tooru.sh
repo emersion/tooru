@@ -20,23 +20,25 @@ EOF
 }
 
 sources_file=sources
-if [ "$#" -eq 1 ] ; then
+if [ "$#" -eq 1 ]; then
 	sources_file="$1"
 fi
 
-if [ ! -f "$sources_file" ] ; then
+if [ ! -f "$sources_file" ]; then
 	echo "tooru: cannot find sources file \"$sources_file\"" >&2
 	exit 1
 fi
 
-while read -r src
-do
-	echo "Archiving $src"
-	if ytdl_check "$src"; then
-		host=$(url_host "$src")
-		youtube-dl -w -o "$host/%(playlist)s/%(id)s.%(ext)s" --add-metadata -i --download-archive "$host/ids" "$src" || true
+while read -r src; do
+	url=$(echo "$src" | cut -f 1 -d ' ')
+	options=($(echo "$src" | cut -f 2- -d ' '))
+
+	echo "Archiving $url"
+	if ytdl_check "$url"; then
+		host=$(url_host "$url")
+		youtube-dl -w -o "$host/%(playlist)s/%(id)s.%(ext)s" --add-metadata -i --download-archive "$host/ids" "${options[@]}" "$url" || true
 	else
-		wget -m "$src"
+		wget -m "${options[@]}" "$url"
 	fi
 	echo ""
 done < "$sources_file"
