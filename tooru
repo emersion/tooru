@@ -43,7 +43,7 @@ while read -r src; do
 			youtube-dl -w -o "%(playlist)s/%(title)s.%(ext)s" --add-metadata -i --download-archive "ids" "${options[@]}" "$url" || true
 		)
 	else
-		wget -m "${options[@]}" "$url"
+		wget -m "${options[@]}" "$url" || true
 	fi
 	echo ""
 done < "$sources_file"

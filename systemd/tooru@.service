@@ -1,0 +1,8 @@
+[Unit]
+Description=Archive and sync tooru content in %I
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/tooru
+WorkingDirectory=%f
