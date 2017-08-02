@@ -40,7 +40,7 @@ while read -r src; do
 		(
 			mkdir -p "$host"
 			cd "$host"
-			youtube-dl -w -o "%(playlist)s/%(title)s.%(ext)s" --add-metadata -i --download-archive "ids" "${options[@]}" "$url" || true
+			youtube-dl -w -o "%(playlist)s/%(title)s.%(ext)s" --add-metadata -i --write-info-json --download-archive "ids" "${options[@]}" "$url" || true
 		)
 	else
 		wget -m "${options[@]}" "$url" || true
